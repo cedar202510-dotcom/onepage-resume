@@ -1335,6 +1335,15 @@ def build_html(data: dict, style: str, accent: str, sidebar_bg: str) -> str:
     }});
   }}
 
+  // Smart initialization: If content is too sparse on first load, bump the spacing gracefully to fill A4
+  var initialDensity = document.querySelector('.page-inner').scrollHeight / document.querySelector('.page').clientHeight;
+  if (initialDensity < 0.75) {{
+    document.documentElement.style.setProperty('--resume-gap', '14px');
+    document.documentElement.style.setProperty('--resume-lh', '1.65');
+    if (ctrlGap) {{ ctrlGap.value = 14; document.getElementById('ctrlGapVal').textContent = '14px'; }}
+    if (ctrlLh) {{ ctrlLh.value = 1.65; document.getElementById('ctrlLhVal').textContent = '1.65'; }}
+  }}
+
   document.title = getResumeBaseName();
   bindPhotoHotspots();
   setPaletteActive((getComputedStyle(document.documentElement).getPropertyValue('--accent') || '').trim());
