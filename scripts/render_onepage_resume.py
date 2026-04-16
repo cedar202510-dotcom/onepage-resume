@@ -301,7 +301,7 @@ def build_header(profile: dict, style: str) -> str:
 def css_for_style(tokens: dict, style: str) -> str:
     sidebar_fg = text_color_for_bg(tokens.get("sidebar_bg", "#1f1f1f"))
     return f"""
-    @page {{ size: A4; margin: 9mm; }}
+    @page {{ size: A4; margin: 0; }}
     :root {{
       --text-primary: {tokens['text_primary']};
       --text-secondary: {tokens['text_secondary']};
@@ -433,10 +433,10 @@ def css_for_style(tokens: dict, style: str) -> str:
         background: transparent;
       }}
       .page {{
-        width: auto;
-        height: auto;
         margin: 0;
         box-shadow: none;
+        page-break-after: avoid;
+        page-break-before: avoid;
       }}
     }}
     """
