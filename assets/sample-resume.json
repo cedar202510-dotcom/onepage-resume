@@ -1,0 +1,77 @@
+{
+  "profile": {
+    "name": "张晨",
+    "title": "后端工程师",
+    "phone": "138-0000-0000",
+    "email": "zhangchen@example.com",
+    "location": "上海",
+    "links": ["github.com/zhangchen", "linkedin.com/in/zhangchen"],
+    "summary": "专注高可用后端服务与工程效率建设，具备从0到1搭建业务系统与持续优化的经验。",
+    "photo_url": ""
+  },
+  "experience": [
+    {
+      "company": "星云科技",
+      "role": "高级后端工程师",
+      "location": "上海",
+      "start_date": "2022.03",
+      "end_date": "至今",
+      "bullets": [
+        "主导支付核心链路重构，将接口超时率降低35%。",
+        "建设多仓库CI质量闸门，构建失败率下降28%。",
+        "推动服务可观测性改造，关键告警平均响应时长缩短40%。"
+      ]
+    },
+    {
+      "company": "云原软件",
+      "role": "后端工程师",
+      "location": "杭州",
+      "start_date": "2019.07",
+      "end_date": "2022.02",
+      "bullets": [
+        "负责用户中心服务开发，支撑千万级用户数据查询。",
+        "优化MySQL慢查询并引入缓存分层，接口P95延迟降低30%。"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "OnePass 统一认证",
+      "role": "技术负责人",
+      "start_date": "2023.01",
+      "end_date": "2023.10",
+      "stack": ["Go", "Redis", "PostgreSQL", "Docker"],
+      "bullets": [
+        "设计统一令牌服务，生产可用性达到99.95%。",
+        "上线审计日志与运维看板，满足内部合规检查要求。"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "同济大学",
+      "degree": "本科",
+      "major": "计算机科学与技术",
+      "start_date": "2015.09",
+      "end_date": "2019.06",
+      "coursework": ["分布式系统", "数据库系统", "操作系统"],
+      "honors": ["优秀毕业生", "校级奖学金"]
+    }
+  ],
+  "skills": [
+    {
+      "group": "编程语言",
+      "items": ["Go", "Python", "TypeScript", "SQL"]
+    },
+    {
+      "group": "基础设施",
+      "items": ["Kubernetes", "Docker", "AWS", "Prometheus"]
+    }
+  ],
+  "awards": ["2024年度技术创新奖"],
+  "additional": {
+    "languages": ["中文", "英文"],
+    "volunteering": [],
+    "publications": []
+  }
+}

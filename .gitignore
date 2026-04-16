@@ -1,0 +1,14 @@
+# Runtime / generated outputs
+outputs/
+*.pdf
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

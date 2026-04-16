@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onepage Resume 风格预览</title>
+  <style>
+    :root {
+      --bg: #f1f5fb;
+      --panel: #ffffff;
+      --line: #d7e1ef;
+      --text: #0f172a;
+      --muted: #475569;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: radial-gradient(circle at top left, #e8f1ff 0%, #f1f5fb 48%, #ebf4ef 100%);
+      font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 22px 14px 30px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.12;
+      color: #0b2f59;
+    }
+    .sub {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .tips {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border: 1px solid #cbdbf2;
+      border-radius: 10px;
+      background: #f7fbff;
+      color: #1e3a5f;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 620px;
+    }
+    .head {
+      padding: 12px 12px 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .head h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #0f2847;
+    }
+    .meta {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      border: 1px solid #bfd0e6;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #183c63;
+      background: #f4f9ff;
+    }
+    .preview {
+      margin: 10px;
+      border: 1px solid #d5deea;
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+      height: 430px;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .resume {
+      height: 100%;
+      padding: 10px;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .name {
+      font-size: 21px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .line { color: #475569; }
+    .entry-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: 700;
+    }
+    ul { margin: 4px 0 0 14px; padding: 0; }
+    li { margin-bottom: 2px; }
+
+    .stripe .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .stripe .section-title b {
+      background: #1f4e8c;
+      color: #fff;
+      padding: 2px 8px;
+      font-size: 10px;
+      letter-spacing: 0.03em;
+    }
+    .stripe .section-title span {
+      flex: 1;
+      border-bottom: 2px solid #1f4e8c;
+    }
+
+    .compact .section-title {
+      border-bottom: 2px solid #111111;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+      color: #111111;
+    }
+    .compact ul { margin-left: 12px; }
+
+    .sidebar {
+      display: grid;
+      grid-template-columns: 35% 65%;
+      padding: 0;
+      gap: 0;
+    }
+    .sidebar-left {
+      background: #1f1f1f;
+      color: #eef2ff;
+      padding: 10px 8px;
+    }
+    .sidebar-left .name {
+      font-size: 17px;
+      color: #fff;
+    }
+    .sidebar-left .block {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .sidebar-right {
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sidebar-right .section-title {
+      border-bottom: 2px solid #111111;
+      padding-bottom: 2px;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .note {
+      margin-top: auto;
+      padding: 9px 12px 12px;
+      border-top: 1px solid var(--line);
+      color: #334155;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1080px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 560px; }
+      .preview { height: 340px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Onepage Resume 风格预览台</h1>
+    <p class="sub">先看风格再生成正式简历。这个页面是自包含预览，不需要先运行脚本。</p>
+
+    <div class="tips">
+      推荐流程：先选风格 -> 确认强调色 -> 再做内容裁剪与排版。<br />
+      默认色：`stripe` 蓝色；`compact` 和 `sidebar` 黑色。<br />
+      颜色可自定义：生成时可传入任意 Hex 颜色（例如 `#1f4e8c` / `#111111`）。<br />
+      先在这里选你最喜欢的风格，后续还可以继续调整颜色、内容详略和版式细节。
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="head">
+          <h2>stripe</h2>
+          <p class="meta">条带标题风格，信息层级清晰，适合大多数岗位。</p>
+          <div class="actions"><span class="badge">已内置完整风格示意</span></div>
+        </div>
+        <div class="preview">
+          <div class="resume stripe">
+            <h3 class="name">张晨</h3>
+            <div class="line">后端工程师 | 138-0000-0000 | zhang@example.com</div>
+            <div>
+              <div class="section-title"><b>工作经历</b><span></span></div>
+              <div class="entry-title"><span>高级后端工程师 | 星云科技</span><span class="line">2022.03 - 至今</span></div>
+              <ul>
+                <li>重构核心链路，接口超时率下降 35%</li>
+                <li>建设质量闸门，构建失败率下降 28%</li>
+              </ul>
+            </div>
+            <div>
+              <div class="section-title"><b>项目经历</b><span></span></div>
+              <div class="entry-title"><span>OnePass 统一认证</span><span class="line">2023.01 - 2023.10</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="note">特点：标题识别度高，版面稳重，阅读路径直观。</div>
+      </section>
+
+      <section class="card">
+        <div class="head">
+          <h2>compact</h2>
+          <p class="meta">高密度极简风格，适合内容偏多、希望一页信息更满的场景。</p>
+          <div class="actions"><span class="badge">已内置完整风格示意</span></div>
+        </div>
+        <div class="preview">
+          <div class="resume compact">
+            <h3 class="name">张晨</h3>
+            <div class="line">后端工程师 | 上海 | github.com/zhangchen</div>
+            <div>
+              <div class="section-title">工作经历</div>
+              <div class="entry-title"><span>高级后端工程师 | 星云科技</span><span class="line">2022.03 - 至今</span></div>
+              <ul>
+                <li>主导支付链路重构，超时率下降 35%</li>
+                <li>推动可观测性改造，响应时长缩短 40%</li>
+                <li>优化 CI 质量闸门，失败率下降 28%</li>
+              </ul>
+            </div>
+            <div>
+              <div class="section-title">技能</div>
+              <div>Go / Python / TypeScript / SQL / Kubernetes</div>
+            </div>
+          </div>
+        </div>
+        <div class="note">特点：节奏紧凑，文字承载量更高，控制篇幅能力强。</div>
+      </section>
+
+      <section class="card">
+        <div class="head">
+          <h2>sidebar</h2>
+          <p class="meta">左右分栏风格，左侧承载关键信息，视觉记忆点更强。</p>
+          <div class="actions"><span class="badge">已内置完整风格示意</span></div>
+        </div>
+        <div class="preview">
+          <div class="resume sidebar">
+            <div class="sidebar-left">
+              <h3 class="name">张晨</h3>
+              <div class="line">后端工程师</div>
+              <div class="block">电话：138-0000-0000<br />邮箱：zhang@example.com<br />地点：上海</div>
+              <div class="block">技能：Go, Python, SQL, Docker</div>
+            </div>
+            <div class="sidebar-right">
+              <div>
+                <div class="section-title">工作经历</div>
+                <div class="entry-title"><span>高级后端工程师 | 星云科技</span><span class="line">2022.03 - 至今</span></div>
+                <ul>
+                  <li>重构支付核心链路，超时率下降 35%</li>
+                  <li>建设可观测性系统，响应时长缩短 40%</li>
+                </ul>
+              </div>
+              <div>
+                <div class="section-title">教育经历</div>
+                <div class="entry-title"><span>同济大学 | 计算机科学</span><span class="line">2015.09 - 2019.06</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="note">特点：品牌感更强，适合希望简历视觉个性更明确的候选人。</div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

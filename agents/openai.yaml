@@ -1,0 +1,4 @@
+interface:
+  display_name: "OnePage Resume"
+  short_description: "Extract, confirm, and render one-page resumes with PDF export."
+  default_prompt: "Build a one-page resume from user content, confirm optional sections, and export HTML/PDF."
