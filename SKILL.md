@@ -1,6 +1,10 @@
 ---
 name: onepage-resume
-description: Generate a one-page resume from user-provided content with strict fact preservation, section extraction, interactive inclusion confirmation, style selection, and print-ready HTML/PDF output. Use when a user asks to create, reformat, condense, polish, or export a resume into a single-page layout.
+description: |
+  Generate a one-page resume from user-provided content with strict fact preservation,
+  section extraction, interactive inclusion confirmation, style selection, and print-ready
+  HTML/PDF output. Use when a user asks to create, reformat, condense, polish, or export
+  a resume into a single-page layout.
 ---
 
 # Onepage Resume
