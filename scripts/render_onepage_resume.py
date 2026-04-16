@@ -641,21 +641,21 @@ def build_html(data: dict, style: str, accent: str, sidebar_bg: str) -> str:
     var safeBottom = isSidebarPage ? 0 : (density > 0.9 ? 6 : 10);
     var targetHeight = Math.max(0, pageHeight - safeTop - safeBottom);
 
-    if (contentHeight <= targetHeight) return;
+    if (contentHeight === 0) return;
 
     var ratio = targetHeight / contentHeight;
-    ratio = Math.max(0.72, Math.min(1, ratio));
+    // Allow scaling up to 1.15x for sparse resumes, and down to 0.72x for dense ones
+    ratio = Math.max(0.72, Math.min(1.15, ratio));
 
     if (isSidebarPage && sideLeft && sideRight) {{
-      // Sidebar mode hard rule: left/right columns remain fixed and never overlap.
-      // Shrink both columns consistently when overflowing vertically.
       sideLeft.style.transform = 'scale(' + ratio + ')';
       sideLeft.style.width = (100 / ratio).toFixed(4) + '%';
       sideRight.style.transform = 'scale(' + ratio + ')';
       sideRight.style.width = (100 / ratio).toFixed(4) + '%';
     }} else {{
       inner.style.transform = 'scale(' + ratio + ')';
-      inner.style.width = '100%';
+      // Inverse scale width so that when scaled, it visually takes exactly 100% width
+      inner.style.width = (100 / ratio).toFixed(4) + '%';
     }}
 
     // One more pass for rounding
