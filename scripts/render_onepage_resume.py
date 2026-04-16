@@ -395,12 +395,12 @@ def css_for_style(tokens: dict, style: str) -> str:
     .side-left {{ background: transparent; color: var(--sidebar-fg); padding: 10mm 8mm; }}
     .side-left h3 {{ margin: 14px 0 8px 0; font-size: 12pt; letter-spacing: 0.18em; }}
     .side-left .rule {{ border-bottom: 1px solid currentColor; opacity: 0.45; margin: 8px 0 12px 0; }}
-    .side-left .contact-item {{ font-size: 9.2pt; margin: 6px 0; display: block; line-height: 1.52; }}
+    .side-left .contact-item {{ font-size: 9.2pt; margin: 6px 0; display: block; }}
     .side-left .k {{ opacity: 0.9; }}
     .side-left .v {{ margin-left: 4px; }}
-    .side-left .skill-row {{ margin: 8px 0; line-height: 1.52; }}
+    .side-left .skill-row {{ margin: 8px 0; }}
     .side-left ul {{ margin-top: 8px; }}
-    .side-left li {{ margin: 5px 0; line-height: 1.5; }}
+    .side-left li {{ margin: 5px 0; }}
     .side-left > h3 + .rule + div,
     .side-left > h3 + .rule + p,
     .side-left > h3 + .rule + ul {{
@@ -408,7 +408,7 @@ def css_for_style(tokens: dict, style: str) -> str:
     }}
     .profile-photo-circle {{ position: relative; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,0.85); margin: 0 auto 18px auto; background: rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-size:9pt; }}
     .profile-photo-circle img {{ width: 100%; height: 100%; object-fit: cover; }}
-    .side-right {{ min-width: 0; padding: 9mm 6mm 8mm 7mm; line-height: 1.48; }}
+    .side-right {{ min-width: 0; padding: 9mm 6mm 8mm 7mm; }}
     .hdr-sidebar {{ margin-bottom: 8px; }}
     .side-right section {{ margin-top: var(--resume-gap); }}
     .side-right h2 {{ border-bottom: 2px solid var(--accent); padding-bottom: 2px; }}
@@ -423,8 +423,8 @@ def css_for_style(tokens: dict, style: str) -> str:
       line-height: 1.25;
       font-size: 9.2pt;
     }}
-    .side-right .meta {{ line-height: 1.5; margin-top: 4px; }}
-    .side-right li {{ line-height: 1.54; margin: 3px 0; }}
+    .side-right .meta {{ margin-top: 4px; }}
+    .side-right li {{ margin: 3px 0; }}
 
     @media print {{
       body {{
