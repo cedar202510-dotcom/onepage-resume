@@ -83,12 +83,11 @@ Use this schema to normalize user source text before layout.
 4. Extract optional sections only if present.
 5. For long input, keep only chunks that pass the selection process in `long-source-selection.md`.
 
-## Safe Condensation Rules
+## Mandatory Full Extraction Rules
 
-- Prefer shortenings like "Responsible for X and Y" -> "Owned X, Y".
-- Merge repeated tooling details across bullets.
-- Keep numbers and nouns untouched.
-- Keep action-result structure when possible.
+- Extract ALL elements without summarizing.
+- Do NOT merge bullets to save space at this stage.
+- Keep numbers, nouns, and action-result structures entirely untouched.
 
 ## Non-Negotiable Constraints
 

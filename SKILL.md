@@ -28,27 +28,16 @@ Use this skill to produce recruiter-ready one-page resumes with minimal friction
 6. Export PDF.
 7. Run final quality checks.
 
-## Step 1: Collect Source and Style
+## Step 1: Collect Source and Assert Requirements
 
-Ask for:
-- Resume source text (free-form, Markdown, existing bullets, or mixed language).
-- Style: `stripe`, `compact`, or `sidebar`.
-- Accent color (hex), for example `#1f4e8c`.
-- If style is `sidebar`, keep sidebar color unified with the selected accent color.
-- Mention preview page before style confirmation:
-  - `Open this file to compare styles: style-gallery.html`
-  - This preview page is self-contained and should work directly without running scripts.
-  - Do not rely on `outputs/*.html` file links in user-facing flows.
+- Check if the user has provided ANY resume content (whether via file upload, direct text paste, or previous interaction context).
+- **If NO resume content is provided at all**, politely pause and ask them to provide it: "您好！开始为您生成/优化简历前，我需要您的素材支撑。您可以上传一份当前的简历文档（PDF/Word 等格式），或者把您的简历文本直接粘贴在这里。"
+- **If source is provided**, warn about the avatar limitation: "正在为您整合提取信息。*提示：因系统与版面限制，我们将跳过原文档中的头像提取。稍后排版完成后，请您在工作台右侧直接手动上传证件照片，以获得最佳清晰度。*"
+- Ask for their preferred Style (`stripe`, `compact`, or `sidebar`). You can provide the `style-gallery.html` link.
 
-Default assumptions:
-- Language: infer from source.
-- Page size: A4 if user locale is unknown.
-- Tone: neutral professional.
-
-## Step 2: Extract and Normalize
+## Step 2: Extract and Normalize (Zero Deletion)
 
 Load extraction rules from [references/extraction-schema.md](references/extraction-schema.md).
-If source is long or mixed with unrelated content, apply [references/long-source-selection.md](references/long-source-selection.md) before normalization.
 
 Normalize into sections:
 - `profile`: name, phone/email, location, links, short summary.
@@ -59,86 +48,41 @@ Normalize into sections:
 - `awards[]`: awards/scholarships/certifications.
 - `additional`: languages, volunteering, publications.
 
-Hard constraints:
-- Never fabricate missing facts.
-- Never alter factual numbers/dates/names.
-- Keep original order when chronology is ambiguous.
-- If multiple versions of the same experience exist, keep the most complete one and record which variant was dropped.
+**CRITICAL CONSTRAINT**: You MUST extract ALL entries. NEVER fabricate facts, but also NEVER silently omit or summarize away any project or work experience the user uploaded. If they provided a new supplementary project, APPEND it completely to the array.
 
-## Step 3: Draft One-Page Content Plan
+## Step 3: Present Full Outline and Ask for Confirmation
 
-Apply these density rules:
-- Keep total output to one page at 10-11 pt body size.
+Do NOT render the final HTML yet.
+You MUST present a "Full Module Checklist" to the user and let them decide what to keep.
+
+- Show them exactly what you extracted. Example: "我已为您提取了完整的简历内容（共X段工作经历，Y段项目）。我们在后台未作任何删减。"
+- Ask them: "由于单页（One-page）简历的篇幅极为受限，请问是否**确认所有经历全部保留**？如果篇幅过长，您希望将排版风格设为『极致紧凑』，还是愿意在此刻挑出几个早期不重要的项目让我进行删减合并？"
+
+**Pause and wait for the user's decision.** Only proceed to rendering after they confirm.
+
+## Step 4: Draft One-Page JSON and Condense (Only with Permission)
+
+Based on the user's decision in Step 3, if they agreed to drop or condense certain items, do so safely.
 - Keep each work experience to 3-5 bullets.
-- Keep each project to 2-4 bullets.
 - Limit summary to 2 lines.
-- Prefer quantified bullets when available.
 
-Apply safe condensation only:
-- Merge repetitive bullets.
-- Replace verbose phrases with shorter equivalents.
-- Remove filler words.
-- Preserve meaning and factual claims.
+Export the finalized, confirmed data strictly as structured JSON (e.g., `resume.json`).
 
-Never do:
-- Reframe outcomes with stronger claims than source.
-- Invent metrics or technologies.
-- Change chronology.
+## Step 5: Render One-Page HTML (Mandatory Python Script)
 
-## Step 4: Confirm Optional Sections
+CRITICAL: NEVER generate the HTML manually or try to write `.html` files directly via text generation, as this causes UI layout cross-contamination (e.g., "Core skills" breaking layout in dense mode).
 
-Run confirmation flow from [references/confirmation-checklist.md](references/confirmation-checklist.md).
-
-Always ask user whether to include:
-- Education honors.
-- Coursework.
-- Awards/certifications.
-- Personal evaluation / self-summary paragraph.
-- Additional info (languages, volunteering, publications).
-
-If content is too long:
-- Show exactly what was condensed or omitted.
-- Ask for approval before final render.
-
-## Step 5: Render One-Page HTML
-
-Load layout constraints from [references/layout-rules.md](references/layout-rules.md).
-
-Render priority:
-1. Header (name + contacts + links)
-2. Experience
-3. Projects
-4. Skills
-5. Education
-6. Optional sections confirmed by user
-
-Style mapping:
-- `stripe`: banner-style section labels with horizontal bars and optional icons.
-- `compact`: dense minimalist style with lines and concise bullet hierarchy.
-- `sidebar`: left-right layout with colored left panel and content area on the right.
-
-Use the deterministic renderer when structured JSON is available:
-- `python3 scripts/render_onepage_resume.py --input resume.json --output resume.html --style stripe`
-- `python3 scripts/render_onepage_resume.py --input resume.json --output resume.html --style compact`
-- `python3 scripts/render_onepage_resume.py --input resume.json --output resume.html --style sidebar`
-
-Default theme colors:
-- `stripe`: blue
-- `compact`: black (highest-density style)
-- `sidebar`: black (unified for left panel + section lines)
+You MUST use the deterministic renderer script:
+1. Save the JSON from Step 4 to `resume.json`.
+2. Run the generator: `python3 scripts/render_onepage_resume.py --input resume.json --output resume.html --style <chosen_style>`
+3. Note to user: The generated `resume.html` contains built-in spacing and line-height sliders in the top right, allowing them to instantly adjust the compact/density feel.
 
 ## Step 6: Export PDF
 
 Prefer browser print pipeline:
 - Open `resume.html` in Chromium.
 - Print to PDF with background graphics enabled.
-- Keep margins between 8 mm and 12 mm.
 - Ensure single-page output.
-
-Fallback:
-- Reduce vertical gaps.
-- Compress long bullets.
-- Move optional section below fold only after user confirmation.
 
 ## Step 7: Final Quality Checks
 

@@ -4,23 +4,14 @@ Run this checklist after initial extraction and before final render.
 
 ## Always Confirm
 
-Ask user yes/no for each:
-- Include coursework in education?
-- Include education honors?
-- Include awards/certifications?
-- Include personal evaluation paragraph?
-- Include additional info (languages/volunteering/publications)?
+Present the FULL outline of extracted sections (all roles, projects, and experiences).
+Ask the user explicitly:
+- "是否确认保留以上所有的经历和项目？"
+- "如果您认为篇幅过长，您希望删除或合并哪些部分？"
 
-## If Page Overflows
-
-Show explicit options:
-1. Compress bullets further (keep facts unchanged).
-2. Remove lowest-priority optional section.
-3. Shrink spacing/font within readability bounds.
-
-Require user approval before:
-- Removing any section entirely.
-- Rewriting more than wording-level edits.
+## If Page Is Too Long
+Do not proactively delete content.
+Only after the user explicitly points out which project or bullet to delete, you may remove it.
 
 ## User-Facing Delta Format
 

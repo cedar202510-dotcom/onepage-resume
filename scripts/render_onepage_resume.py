@@ -310,9 +310,11 @@ def css_for_style(tokens: dict, style: str) -> str:
       --bg: {tokens['bg']};
       --sidebar-bg: {tokens.get('sidebar_bg', '#1f1f1f')};
       --sidebar-fg: {sidebar_fg};
+      --resume-lh: 1.35;
+      --resume-gap: 8px;
     }}
     * {{ box-sizing: border-box; }}
-    body {{ margin: 0; background: #ececec; color: var(--text-primary); font-family: {tokens['font']}; font-size: 10pt; line-height: 1.35; }}
+    body {{ margin: 0; background: #ececec; color: var(--text-primary); font-family: {tokens['font']}; font-size: 10pt; line-height: var(--resume-lh); }}
     .page {{
       width: 210mm;
       height: 297mm;
@@ -338,7 +340,7 @@ def css_for_style(tokens: dict, style: str) -> str:
       overflow: hidden;
       text-overflow: ellipsis;
     }}
-    .entry {{ margin: 6px 0; }}
+    .entry {{ margin: var(--resume-gap) 0; }}
     .entry-title {{ display: flex; justify-content: space-between; gap: 8px; font-weight: 700; }}
     .entry-title .right {{ color: var(--text-secondary); white-space: nowrap; font-weight: 600; }}
     .meta {{ margin: 2px 0; font-size: 9pt; color: var(--text-secondary); text-wrap: pretty; line-break: strict; }}
@@ -353,12 +355,14 @@ def css_for_style(tokens: dict, style: str) -> str:
     .hdr-stripe {{ display: grid; grid-template-columns: minmax(0, 1fr) 110px; gap: 12px; align-items: start; margin-bottom: 7px; }}
     .hdr-stripe .left {{ min-width: 0; }}
     .contact-grid {{ display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 10px; margin-top: 5px; }}
+    .contact-grid .contact-item:last-child:nth-child(odd) {{ grid-column: 1 / -1; }}
     .contact-item {{ min-width: 0; font-size: 9.4pt; display: flex; gap: 5px; align-items: baseline; }}
-    .contact-item .icon {{ width: 14px; text-align: center; }}
+    .contact-item .icon {{ width: 14px; text-align: center; flex-shrink: 0; }}
+    .contact-item .k {{ white-space: nowrap; flex-shrink: 0; }}
     .photo-slot {{ position: relative; width: 110px; height: 132px; border: 1px solid var(--rule); background: #f3f3f3; overflow: hidden; display: flex; align-items: center; justify-content: center; }}
     .photo-slot img {{ width: 100%; height: 100%; object-fit: cover; }}
     .photo-placeholder {{ color: #888; font-size: 9pt; }}
-    .stripe section {{ margin-top: 8px; }}
+    .stripe section {{ margin-top: var(--resume-gap); }}
     .stripe-head {{ display: flex; align-items: center; margin-bottom: 5px; }}
     .stripe-head .label {{ background: var(--accent); color: #fff; font-weight: 700; padding: 4px 12px; border-radius: 1px; }}
     .stripe-head .line {{ flex: 1; border-bottom: 2px solid var(--accent); margin-left: 6px; }}
@@ -369,7 +373,7 @@ def css_for_style(tokens: dict, style: str) -> str:
     .hdr-compact .title {{ letter-spacing: 0.05em; }}
     .contact-line {{ margin: 2px 0 0 0; font-size: 9.2pt; }}
     .compact-photo {{ width: 92px; height: 112px; justify-self: end; }}
-    .compact section {{ margin-top: 6px; }}
+    .compact section {{ margin-top: var(--resume-gap); }}
     .compact h2 {{ border-bottom: 2px solid var(--rule); padding-bottom: 2px; }}
     .compact .entry-title {{ font-size: 10pt; }}
     .compact ul li {{ font-size: 9.3pt; }}
@@ -406,7 +410,7 @@ def css_for_style(tokens: dict, style: str) -> str:
     .profile-photo-circle img {{ width: 100%; height: 100%; object-fit: cover; }}
     .side-right {{ min-width: 0; padding: 9mm 6mm 8mm 7mm; line-height: 1.48; }}
     .hdr-sidebar {{ margin-bottom: 8px; }}
-    .side-right section {{ margin-top: 8px; }}
+    .side-right section {{ margin-top: var(--resume-gap); }}
     .side-right h2 {{ border-bottom: 2px solid var(--accent); padding-bottom: 2px; }}
     .side-right .entry {{ margin-bottom: 7px; }}
     .side-right .entry-title {{ align-items: flex-start; gap: 10px; }}
@@ -529,6 +533,16 @@ def build_html(data: dict, style: str, accent: str, sidebar_bg: str) -> str:
     <button type="button" class="theme-dot" data-color="#0f766e" title="青绿色" aria-label="青绿色"></button>
     <button type="button" class="theme-dot" data-color="#475569" title="石墨灰蓝" aria-label="石墨灰蓝"></button>
     <button type="button" class="theme-dot" data-color="#be123c" title="酒红色" aria-label="酒红色"></button>
+  </div>
+  <div class="spacing-controls">
+    <div class="control-group">
+      <label>正文间距 <span id="ctrlLhVal">1.35</span></label>
+      <input type="range" id="ctrlLh" min="1.1" max="2.0" step="0.05" value="1.35" />
+    </div>
+    <div class="control-group">
+      <label>模块间距 <span id="ctrlGapVal">8px</span></label>
+      <input type="range" id="ctrlGap" min="4" max="24" step="1" value="8" />
+    </div>
   </div>
   <button type="button" id="editToggleBtn"><svg viewBox="0 0 24 24" class="icon-svg" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16v4z"></path><path d="M13 7l4 4"></path></svg><span class="btn-text">开始编辑</span></button>
   <button type="button" id="downloadPdfBtn"><svg viewBox="0 0 24 24" class="icon-svg" aria-hidden="true"><path d="M12 3v11"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg><span class="btn-text">下载PDF</span></button>
@@ -1303,6 +1317,24 @@ def build_html(data: dict, style: str, accent: str, sidebar_bg: str) -> str:
   }});
   cancelPrintBtn.addEventListener('click', closePrintModal);
   printBackdrop.addEventListener('click', closePrintModal);
+  
+  var ctrlLh = document.getElementById('ctrlLh');
+  var ctrlGap = document.getElementById('ctrlGap');
+  if (ctrlLh) {{
+    ctrlLh.addEventListener('input', function(e) {{
+      document.getElementById('ctrlLhVal').textContent = e.target.value;
+      document.documentElement.style.setProperty('--resume-lh', e.target.value);
+      fitA4();
+    }});
+  }}
+  if (ctrlGap) {{
+    ctrlGap.addEventListener('input', function(e) {{
+      document.getElementById('ctrlGapVal').textContent = e.target.value + 'px';
+      document.documentElement.style.setProperty('--resume-gap', e.target.value + 'px');
+      fitA4();
+    }});
+  }}
+
   document.title = getResumeBaseName();
   bindPhotoHotspots();
   setPaletteActive((getComputedStyle(document.documentElement).getPropertyValue('--accent') || '').trim());
@@ -1355,6 +1387,37 @@ def build_html(data: dict, style: str, accent: str, sidebar_bg: str) -> str:
   .theme-dot.active {{
     border-color: #111827;
     box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.15);
+  }}
+  .spacing-controls {{
+    background: #ffffff;
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.08);
+  }}
+  .spacing-controls .control-group {{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    color: #475569;
+    font-weight: 600;
+  }}
+  .spacing-controls .control-group label {{
+    display: flex;
+    justify-content: space-between;
+  }}
+  .spacing-controls .control-group span {{
+    font-weight: normal;
+    color: #94a3b8;
+  }}
+  .spacing-controls input[type="range"] {{
+    margin: 0;
+    width: 100%;
+    accent-color: #1f4e8c;
   }}
   .editor-toolbar > button,
   .editor-toolbar .save-wrap > button {{

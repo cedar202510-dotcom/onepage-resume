@@ -35,23 +35,19 @@ Use scoring to resolve duplicates:
 
 Keep highest-score chunk when duplicate statements exist.
 
-## Step C: Build Candidate Resume
+## Step C: Build Full Candidate JSON
 
-Build normalized JSON from kept chunks only.
+Build normalized JSON from ALL chunks.
+DO NOT filter or drop any entries to fit a one-page limit. Extract everything.
+If total content clearly exceeds one-page limits, flag this for the user in the next step, but **do not make the cut yourself**.
 
-If total content exceeds one-page limits:
-- Keep most recent and highest-impact entries.
-- Keep quantified bullets over descriptive-only bullets.
-- Move low-signal content to optional pool.
+## Step D: User Confirmation (Zero Deletion Rule)
 
-## Step D: User Confirmation
-
-Show a short selection report before final render:
-- Which chunks were included
-- Which chunks were excluded
-- Why they were excluded (`duplicate`, `low-signal`, `irrelevant`, `page-limit`)
-
-Require user approval before permanently dropping optional content.
+Show a complete Extraction Report before final render:
+- List exactly what was extracted (all roles, all projects).
+- Inform the user if the content is too long for one page.
+- Ask them: "由于篇幅限制，请问是否确认保留所有经历，还是需要我为您删减某个早期的项目？"
+- **Require user approval** before dropping or shortening ANY content.
 
 ## Non-Negotiable
 
