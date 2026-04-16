@@ -84,7 +84,7 @@ Prefer browser print pipeline:
 - Print to PDF with background graphics enabled.
 - Ensure single-page output.
 
-## Step 7: Final Quality Checks
+## Step 7: Final Delivery & Auto-Open
 
 Validate before delivery:
 - Name/contact correctness.
@@ -95,7 +95,7 @@ Validate before delivery:
 - ATS readability (critical info stays in text, not icon-only).
 - Line-break quality: avoid ragged short wrap lines (for example, a new line starting with only 1-2 Chinese characters). Condense or rephrase wording when needed.
 
-Return using clickable file link syntax (do NOT use backticks around the link):
-- [resume.html](file:///absolute/path/to/resume.html) (editable source, click to view right in the preview panel)
-- [resume.pdf](file:///absolute/path/to/resume.pdf) (submission-ready)
-- Brief note listing any condensed lines approved by user
+Delivery Actions:
+1. You MUST run the terminal command `open resume.html` (or equivalent for the user's OS) to automatically pop open the generated file in their browser.
+2. Tell the user you have automatically opened the preview for them.
+3. Briefly list `.html` and `.pdf` generation status, and outline any condensed lines approved by the user.
