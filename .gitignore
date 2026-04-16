@@ -12,3 +12,9 @@ __pycache__/
 # Editor
 .vscode/
 .idea/
+
+# Local testing
+resume.json
+resume.html
+test-resume-out.html
+测试简历
